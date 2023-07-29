@@ -1,4 +1,10 @@
-# HitBullsEye Test Analysis Chrome Extension
+# <p align="center">HitBullsEye Test Analysis Chrome Extension</p>
+
+<p align="center">
+
+  <img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/6a2965c8-4a50-4934-b921-1bb64825d3b9" alt="logo" style="width: 50%">
+  
+</p>
 
 This is a chrome extension that enhances the HitBullsEye experience by adding a new feature to view question-wise analysis of tests on HitBullsEye.
 
@@ -28,7 +34,12 @@ After installing the extension, visit HitBullsEye on your browser. The extension
 - Improve your test preparation by analyzing your performance.
 
 ## Screenshots
+  
+<!-- Screenshot 1 -->
+<img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/3453d6a0-a803-4d00-a228-3a2c7ce998d8" alt="Screenshot 1" style="width: 50%">
 
+<!-- Screenshot 2 -->
+<img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/839a4a5e-fea0-4211-9236-348c45dd11ce" alt="Screenshot 2" style="width: 50%">
 
 ## Support and Contribution
 
