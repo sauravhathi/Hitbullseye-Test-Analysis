@@ -43,7 +43,7 @@ After installing the extension, visit HitBullsEye on your browser. The extension
 
 ## Support and Contribution
 
-If you encounter any issues or have suggestions for improvement, please feel free to [open an issue](https://github.com/sauravhathi/hitbullseye-test-analysis/issues). Contributions are also welcome! Fork the repository, make your changes, and create a pull request.
+If you encounter any issues or have suggestions for improvement, please feel free to [open an issue](https://github.com/sauravhathi/Hitbullseye-Test-Analysis/issues). Contributions are also welcome! Fork the repository, make your changes, and create a pull request.
 
 ## Buy Me A Coffee ☕
 
@@ -57,7 +57,7 @@ Let's connect on LinkedIn! [LinkedIn](https://www.linkedin.com/in/sauravhathi/)
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/sauravhathi/hitbullseye-test-analysis/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/sauravhathi/Hitbullseye-Test-Analysis/blob/master/LICENSE) file for details.
 
 ---
 
