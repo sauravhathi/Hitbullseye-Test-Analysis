@@ -22,6 +22,11 @@ async function fetchData(url, requestBody, headers) {
 }
 
 function handleFetchError(error) {
+    if (error.message.includes("Unexpected end of JSON input")) {
+        alert("Please attempt the test first.");
+        return;
+    }
+
     console.log("Error fetching data:", error);
     throw error;
 }
@@ -88,6 +93,10 @@ function createSelectElement(options, onChangeCallback) {
 
 function createAnalysisTable(analysisData) {
     const parentTestDiv = document.createElement("div");
+    const printButton = document.createElement("button");
+    printButton.textContent = "Print";
+    printButton.classList.add("print-button");
+    printButton.addEventListener("click", printTable);
     parentTestDiv.classList.add("table-container");
     parentTestDiv.style.maxWidth = "300px";
     parentTestDiv.style.overflowWrap = "break-word";
@@ -100,6 +109,10 @@ function createAnalysisTable(analysisData) {
     pElement.innerHTML = "Correct Answers: ";
     tableElement.innerHTML = "<tr><th>Question Number</th><th>Correct Answer</th></tr>";
 
+    if (!analysisData) {
+        return parentTestDiv;
+    }
+
     analysisData.forEach((question) => {
         pElement.innerHTML += question.Correct_Answer;
         const rowElement = document.createElement("tr");
@@ -108,10 +121,71 @@ function createAnalysisTable(analysisData) {
     });
 
     parentTestDiv.appendChild(pElement);
+    parentTestDiv.appendChild(printButton);
     parentTestDiv.appendChild(tableElement);
 
     return parentTestDiv;
 }
+
+function printTable() {
+    const analysisDiv = document.querySelector("#analysisDiv");
+
+    if (analysisDiv) {
+        analysisDiv.style.width = "100%";
+        analysisDiv.style.margin = "auto";
+        const currentTestName = localStorage.getItem("currentTestName");
+        const testNameElement = document.createElement("h2");
+        testNameElement.textContent = currentTestName;
+        testNameElement.style.textAlign = "center";
+        testNameElement.style.marginTop = "10px";
+        testNameElement.style.marginBottom = "10px";
+        analysisDiv.insertAdjacentElement("afterbegin", testNameElement);
+        const contentToPrint = analysisDiv.outerHTML;
+        const printWindow = window.open("", "_blank");
+        const watermarkText = 'https://github.com/sauravhathi';
+        const watermarkStyle = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            color: rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            pointer-events: none;
+        `;
+        const watermarkTag = `<div style="${watermarkStyle}" data-watermark>${watermarkText}</div>`;
+        printWindow.document.write(`
+            <title>${"Answer Key - " + currentTestName + " - @sauravhathi"}</title>
+            <style>
+                @media print {
+                    div[data-watermark] {
+                        display: block !important;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 40px;
+                        color: rgba(0, 0, 0, 0.15);
+                        z-index: 9999;
+                        pointer-events: none;
+                    }
+                    .print-button {
+                        display: none;
+                    }
+                }
+            </style>
+       `);
+
+        printWindow.document.write(contentToPrint);
+        printWindow.document.body.insertAdjacentHTML('beforeend', watermarkTag);
+        printWindow.document.close();
+        testNameElement.remove();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+}
+
 
 function createCloseButton() {
     const credit_button = document.createElement("div");
@@ -173,6 +247,7 @@ function onMenuSelectChange() {
         .then((tests) => {
             console.log("Fetching tests...");
             const testOptions = tests.map((test) => ({ value: test.testid, text: test.testname }));
+            localStorage.setItem("testOptions", JSON.stringify(testOptions));
 
             testSelect.innerHTML = "";
             const initialOption = document.createElement("option");
@@ -193,6 +268,7 @@ function onMenuSelectChange() {
 
 function onTestSelectChange() {
     const selectedTestId = this.value;
+
     if (!selectedTestId) {
         const analysisDiv = document.querySelector("#analysisDiv");
         if (analysisDiv) {
@@ -200,6 +276,10 @@ function onTestSelectChange() {
         }
         return;
     }
+
+    const testOptions = JSON.parse(localStorage.getItem("testOptions"));
+    const selectedTest = testOptions.find((test) => test.value === parseInt(selectedTestId));
+    localStorage.setItem("currentTestName", selectedTest.text);
 
     fetchQuestionWiseAnalysis(selectedTestId)
         .then((questionWiseAnalysis) => {
