@@ -36,10 +36,7 @@ After installing the extension, visit HitBullsEye on your browser. The extension
 ## Screenshots
   
 <!-- Screenshot 1 -->
-<img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/3453d6a0-a803-4d00-a228-3a2c7ce998d8" alt="Screenshot 1" style="width: 50%">
-
-<!-- Screenshot 2 -->
-<img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/839a4a5e-fea0-4211-9236-348c45dd11ce" alt="Screenshot 2" style="width: 50%">
+<img src="https://github.com/sauravhathi/Hitbullseye-Test-Analysis/assets/61316762/22328cc7-cdeb-4bf1-8430-a75397125f09" alt="Screenshot 1" style="width: 70%">
 
 ## Support and Contribution
 
