@@ -8,6 +8,8 @@
 
 This is a chrome extension that enhances the HitBullsEye experience by adding a new feature to view question-wise analysis of tests on HitBullsEye.
 
+*Note*: Before try to get an answer, you have to take the test. Whether you provide a correct or incorrect answer, after that, it will give you 100% correct answers. Even if the results are not published, it will show you the correct answers.
+
 ## Installation
 
 To use this extension, follow these steps:
