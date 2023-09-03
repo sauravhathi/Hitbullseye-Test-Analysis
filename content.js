@@ -4,6 +4,12 @@ const API_BASE_URL = "https://studentdashboardapis.hitbullseye.com/api/Bulldash"
 const MENU_FETCH_URL = `${API_BASE_URL}/GeTestMenus`;
 const TESTS_FETCH_URL = `${API_BASE_URL}/GetTestsList`;
 const QUESTION_ANALYSIS_URL = `${API_BASE_URL}/bulldash_questionwiseanalysis`;
+const apiHeaders = {
+    accept: "application/json, text/plain, */*",
+    "content-type": "application/json;charset=UTF-8",
+    Origin: "https://student.hitbullseye.com",
+    authorization: "Bearer " + localStorage.getItem("token"),
+};
 
 async function fetchData(url, requestBody, headers) {
     try {
@@ -34,15 +40,12 @@ function handleFetchError(error) {
 async function fetchMenuData() {
     const menuDataReq = { clickedmenuid: "26" };
     const headers = {
-        accept: "application/json, text/plain, */*",
-        authorization: "Bearer " + localStorage.getItem("token"),
-        "content-type": "application/json;charset=UTF-8",
+        ...apiHeaders,
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
-        Origin: "https://student.hitbullseye.com",
         Referer: "https://student.hitbullseye.com/testzone/tests-menus;title=TestCategories",
-    };
+    }
     return await fetchData(MENU_FETCH_URL, menuDataReq, headers);
 }
 
@@ -55,27 +58,21 @@ async function fetchTests(selectedMenuId) {
         search: "",
     };
     const headers = {
-        accept: "application/json, text/plain, */*",
-        "content-type": "application/json;charset=UTF-8",
-        Origin: "https://student.hitbullseye.com",
+        ...apiHeaders,
         Referer: "https://student.hitbullseye.com/testzone/tests-menus;title=TestCategories",
-        authorization: "Bearer " + localStorage.getItem("token"),
-    };
+    }
     return await fetchData(TESTS_FETCH_URL, reqBody, headers);
 }
 
 async function fetchQuestionWiseAnalysis(selectedTestId) {
     const reqBody = { testid: selectedTestId };
     const headers = {
-        accept: "application/json, text/plain, */*",
-        authorization: "Bearer " + localStorage.getItem("token"),
-        "content-type": "application/json;charset=UTF-8",
+        ...apiHeaders,
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
-        Origin: "https://student.hitbullseye.com",
         Referer: "https://student.hitbullseye.com/testzone/question-wise-analysis",
-    };
+    }
     return await fetchData(QUESTION_ANALYSIS_URL, reqBody, headers);
 }
 
@@ -126,66 +123,6 @@ function createAnalysisTable(analysisData) {
 
     return parentTestDiv;
 }
-
-function printTable() {
-    const analysisDiv = document.querySelector("#analysisDiv");
-
-    if (analysisDiv) {
-        analysisDiv.style.width = "100%";
-        analysisDiv.style.margin = "auto";
-        const currentTestName = localStorage.getItem("currentTestName");
-        const testNameElement = document.createElement("h2");
-        testNameElement.textContent = currentTestName;
-        testNameElement.style.textAlign = "center";
-        testNameElement.style.marginTop = "10px";
-        testNameElement.style.marginBottom = "10px";
-        analysisDiv.insertAdjacentElement("afterbegin", testNameElement);
-        const contentToPrint = analysisDiv.outerHTML;
-        const printWindow = window.open("", "_blank");
-        const watermarkText = 'https://github.com/sauravhathi';
-        const watermarkStyle = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40px;
-            color: rgba(0, 0, 0, 0.15);
-            z-index: 9999;
-            pointer-events: none;
-        `;
-        const watermarkTag = `<div style="${watermarkStyle}" data-watermark>${watermarkText}</div>`;
-        printWindow.document.write(`
-            <title>${"Answer Key - " + currentTestName + " - @sauravhathi"}</title>
-            <style>
-                @media print {
-                    div[data-watermark] {
-                        display: block !important;
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        font-size: 40px;
-                        color: rgba(0, 0, 0, 0.15);
-                        z-index: 9999;
-                        pointer-events: none;
-                    }
-                    .print-button {
-                        display: none;
-                    }
-                }
-            </style>
-       `);
-
-        printWindow.document.write(contentToPrint);
-        printWindow.document.body.insertAdjacentHTML('beforeend', watermarkTag);
-        printWindow.document.close();
-        testNameElement.remove();
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-    }
-}
-
 
 function createCloseButton() {
     const credit_button = document.createElement("div");

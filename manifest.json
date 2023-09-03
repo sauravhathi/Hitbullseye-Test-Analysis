@@ -27,7 +27,8 @@
         "https://student.hitbullseye.com/testzone/*"
       ],
       "js": [
-        "content.js"
+        "content.js",
+        "printTable.js"
       ],
       "css": [
         "content.css"
