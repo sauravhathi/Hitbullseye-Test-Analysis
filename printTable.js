@@ -10,10 +10,10 @@ function printTable() {
         const socialLinks = document.createElement("div");
         socialLinks.style = style;
         socialLinks.innerHTML = `
-            <a href="https://youtube.com/@SauravHathi" target="_blank">YouTube</a>
-            <a href="https://github.com/sauravhathi" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/sauravhathi" target="_blank">LinkedIn</a>
-            <a href="https://t.me/sauravhathi_yt_discussion" target="_blank">Telegram</a>
+            <a href="https://bit.ly/3sEXO8h" target="_blank">YouTube</a>
+            <a href="https://bit.ly/sauravhathi" target="_blank">GitHub</a>
+            <a href="https://bit.ly/3R6hUSR" target="_blank">LinkedIn</a>
+            <a href="https://bit.ly/faq-tel" target="_blank">Telegram</a>
         `;
 
         const testNameElement = document.createElement("h2");
